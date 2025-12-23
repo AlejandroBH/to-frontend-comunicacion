@@ -18,9 +18,12 @@ const LoginForm = () => {
         password,
       });
 
-      setSuccess("Login exitoso!");
+      setSuccess("Login exitoso! espere un momento");
       localStorage.setItem("token", response.data.token);
-      console.log("Respuesta del servidor:", response.data);
+      // console.log("Respuesta del servidor:", response.data);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     } catch (err) {
       if (err.response) {
         setError(err.response.data.error || "Error en el login");
