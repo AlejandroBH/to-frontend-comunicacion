@@ -11,3 +11,15 @@ export const registerUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// Login de usuario
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const resp = await userService.loginUser(email, password);
+
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};

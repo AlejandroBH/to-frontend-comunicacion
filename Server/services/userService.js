@@ -12,3 +12,25 @@ export const registerUser = async (userData) => {
   users.push(newUser);
   return newUser;
 };
+
+// Login de usuario
+export const loginUser = async (email, password) => {
+  const user = users.find((u) => u.email === email);
+
+  if (!user) {
+    throw new Error("Credenciales inválidas");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new Error("Credenciales inválidas");
+  }
+
+  // Retornar usuario sin la contraseña
+  const { password: _, ...userWithoutPassword } = user;
+  return {
+    message: "Login exitoso",
+    user: userWithoutPassword,
+  };
+};
