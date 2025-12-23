@@ -12,15 +12,16 @@ import {
   updatePostValidator,
   idParamValidator,
 } from "../middlewares/postValidator.js";
+import { authenticateToken } from "../middlewares/authMiddleware.js";
 
 const postRouter = Router();
 
 // Rutas para posts
 postRouter.get("/", getAllPosts);
 postRouter.get("/:id", idParamValidator, getPostById);
-postRouter.post("/", createPostValidator, createPost);
-postRouter.put("/:id", updatePostValidator, updatePost);
-postRouter.delete("/:id", idParamValidator, deletePost);
-postRouter.patch("/:id/like", idParamValidator, likePost);
+postRouter.post("/", authenticateToken, createPostValidator, createPost);
+postRouter.put("/:id", authenticateToken, updatePostValidator, updatePost);
+postRouter.delete("/:id", authenticateToken, idParamValidator, deletePost);
+postRouter.patch("/:id/like", authenticateToken, idParamValidator, likePost);
 
 export default postRouter;

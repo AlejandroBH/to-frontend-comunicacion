@@ -1,5 +1,6 @@
 import { users } from "../data/users.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Registro de usuario
 export const registerUser = async (userData) => {
@@ -27,10 +28,20 @@ export const loginUser = async (email, password) => {
     throw new Error("Credenciales inválidas");
   }
 
-  // Retornar usuario sin la contraseña
+  // Generar token JWT
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  // Retornar usuario sin la contraseña y el token
   const { password: _, ...userWithoutPassword } = user;
   return {
     message: "Login exitoso",
     user: userWithoutPassword,
+    token,
   };
 };
