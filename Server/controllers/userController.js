@@ -1,5 +1,6 @@
 import * as userService from "../services/userService.js";
 
+// Registro de usuario
 export const registerUser = async (req, res) => {
   try {
     const data = req.body;

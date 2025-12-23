@@ -1,5 +1,6 @@
 import { body, validationResult } from "express-validator";
 
+// Validador de registro
 const validator = [
   body("name")
     .notEmpty()

@@ -1,6 +1,7 @@
 import { users } from "../data/users.js";
 import bcrypt from "bcrypt";
 
+// Registro de usuario
 export const registerUser = async (userData) => {
   const existingUser = users.find((u) => u.email === userData.email);
   if (existingUser) {

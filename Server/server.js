@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
 
 dotenv.config();
 
@@ -37,5 +38,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/user", userRoutes);
+app.use("/posts", postRoutes);
 
 app.listen(process.env.API_PORT, () => console.log(`Servidor corriendo en puerto ${process.env.API_PORT}`));
