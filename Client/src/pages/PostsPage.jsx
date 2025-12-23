@@ -32,8 +32,17 @@ const PostsPage = () => {
     }
   };
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return (
+    <div className="posts-page">
+      <div className="loading-container">Cargando posts...</div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="posts-page">
+      <div className="error-container">{error}</div>
+    </div>
+  );
 
   return (
     <div className="posts-page">

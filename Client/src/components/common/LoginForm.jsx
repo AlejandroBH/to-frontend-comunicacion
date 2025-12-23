@@ -60,8 +60,8 @@ const LoginForm = () => {
           Iniciar Sesión
         </button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <div className="login-message error">{error}</div>}
+      {success && <div className="login-message success">{success}</div>}
     </div>
   );
 };
