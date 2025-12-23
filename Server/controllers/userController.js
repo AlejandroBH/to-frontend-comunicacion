@@ -1,8 +1,8 @@
 import * as userService from "../services/userService.js";
 
-export const registerUser = (req, res) => {
+export const registerUser = async (req, res) => {
   const data = req.body;
-  const resp = userService.registerUser(data);
+  const resp = await userService.registerUser(data);
 
   res.status(201).send(resp);
 };

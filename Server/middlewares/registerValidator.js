@@ -6,9 +6,7 @@ const validator = [
     .withMessage("El nombre es obligatorio")
     .isString()
     .withMessage("El nombre debe ser un texto"),
-  body("email")
-    .isEmail()
-    .withMessage("Debe ser un email válido"),
+  body("email").isEmail().withMessage("Debe ser un email válido"),
   body("password")
     .isLength({ min: 6 })
     .withMessage("La contraseña debe tener al menos 6 caracteres"),
