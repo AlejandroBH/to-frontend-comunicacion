@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 import PostList from "../components/common/PostList";
+import "../styles/posts.css";
 
 const PostsPage = () => {
   const [posts, setPosts] = useState([]);
@@ -35,7 +36,7 @@ const PostsPage = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
+    <div className="posts-page">
       <PostList posts={posts} onLike={handleLike} />
     </div>
   );

@@ -1,22 +1,26 @@
 const PostList = ({ posts, onLike }) => {
   return (
-    <div>
-      <h2>Lista de Posts</h2>
+    <div className="posts-container">
+      <h2 className="posts-title">Lista de Posts</h2>
       {posts.length === 0 ? (
         <p>No hay posts disponibles.</p>
       ) : (
-        <ul>
+        <div className="posts-grid">
           {posts.map((post) => (
-            <li key={post.id}>
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
+            <div key={post.id} className="post-card">
+              <h3 className="post-title">{post.title}</h3>
+              <p className="post-content">{post.content}</p>
               <p>Autor: {post.author}</p>
               <p>Fecha: {new Date(post.createdAt).toLocaleDateString()}</p>
-              <p>Likes: {post.likes}</p>
-              <button onClick={() => onLike(post.id)}>Like</button>
-            </li>
+              <div className="post-actions">
+                <span className="like-count">Likes: {post.likes}</span>
+                <button className="like-button" onClick={() => onLike(post.id)}>
+                  Like
+                </button>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

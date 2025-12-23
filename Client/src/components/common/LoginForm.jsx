@@ -32,9 +32,8 @@ const LoginForm = () => {
 
   return (
     <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="login-input">
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -44,7 +43,7 @@ const LoginForm = () => {
             required
           />
         </div>
-        <div>
+        <div className="login-input">
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
@@ -54,7 +53,9 @@ const LoginForm = () => {
             required
           />
         </div>
-        <button type="submit">Iniciar Sesión</button>
+        <button className="login-button" type="submit">
+          Iniciar Sesión
+        </button>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
