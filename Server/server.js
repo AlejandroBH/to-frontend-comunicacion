@@ -2,6 +2,7 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import dotenv from "dotenv";
+import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
@@ -27,10 +28,14 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+// Logging
+const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
+app.use(morgan(morganFormat));
+
 app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/user", userRoutes);
 
-app.listen(3000, () => console.log("Servidor corriendo en puerto 3000"));
+app.listen(process.env.API_PORT, () => console.log(`Servidor corriendo en puerto ${process.env.API_PORT}`));
