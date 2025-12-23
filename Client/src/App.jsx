@@ -1,10 +1,15 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PostsPage from "./pages/PostsPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
-    <>
-      <PostsPage />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<PostsPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </Router>
   );
 }
 

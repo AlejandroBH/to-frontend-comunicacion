@@ -1,4 +1,4 @@
-const PostList = ({ posts }) => {
+const PostList = ({ posts, onLike }) => {
   return (
     <div>
       <h2>Lista de Posts</h2>
@@ -13,6 +13,7 @@ const PostList = ({ posts }) => {
               <p>Autor: {post.author}</p>
               <p>Fecha: {new Date(post.createdAt).toLocaleDateString()}</p>
               <p>Likes: {post.likes}</p>
+              <button onClick={() => onLike(post.id)}>Like</button>
             </li>
           ))}
         </ul>
