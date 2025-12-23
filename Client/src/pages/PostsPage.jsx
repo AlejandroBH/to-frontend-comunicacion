@@ -24,11 +24,24 @@ const PostsPage = () => {
   }, []);
 
   const handleLike = async (id) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Debes iniciar sesión para dar like a los posts');
+      window.location.href = '/login';
+      return;
+    }
+
     try {
       const response = await api.patch(`/posts/${id}/like`);
       setPosts(posts.map((post) => (post.id === id ? response.data : post)));
     } catch (err) {
       console.error("Error al dar like:", err);
+      if (err.response && err.response.status === 401) {
+        alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
     }
   };
 
