@@ -1,7 +1,6 @@
 const PostList = ({ posts, onLike }) => {
   return (
     <div className="posts-container">
-      <h2 className="posts-title">Lista de Posts</h2>
       {posts.length === 0 ? (
         <div className="loading-container">
           <p>No hay posts disponibles.</p>

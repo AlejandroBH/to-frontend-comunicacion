@@ -20,6 +20,7 @@ const LoginForm = () => {
 
       setSuccess("Login exitoso! espere un momento");
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       // console.log("Respuesta del servidor:", response.data);
       setTimeout(() => {
         window.location.href = "/";

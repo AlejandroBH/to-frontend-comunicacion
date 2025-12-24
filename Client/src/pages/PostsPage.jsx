@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
 import PostList from "../components/common/PostList";
+import CreatePostModal from "../components/common/CreatePostModal";
 import "../styles/posts.css";
 
 const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -21,6 +24,11 @@ const PostsPage = () => {
     };
 
     fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
   }, []);
 
   const handleLike = async (id) => {
@@ -40,9 +48,24 @@ const PostsPage = () => {
       if (err.response && err.response.status === 401) {
         alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         window.location.href = '/login';
       }
     }
+  };
+
+  const handleCreatePost = () => {
+    if (!isLoggedIn) {
+      alert('Debes iniciar sesión para crear un nuevo post');
+      window.location.href = '/login';
+      return;
+    }
+
+    setIsModalOpen(true);
+  };
+
+  const handlePostCreated = (newPost) => {
+    setPosts([newPost, ...posts]);
   };
 
   if (loading) return (
@@ -59,7 +82,25 @@ const PostsPage = () => {
 
   return (
     <div className="posts-page">
+      <div className="posts-header">
+        <h1 className="posts-title">Posts</h1>
+        <button
+          className={`create-post-button ${!isLoggedIn ? 'disabled' : ''}`}
+          onClick={handleCreatePost}
+          disabled={!isLoggedIn}
+          title={!isLoggedIn ? 'Debes iniciar sesión para crear un post' : 'Crear nuevo post'}
+        >
+          <span className="button-icon">✨</span>
+          <span className="button-text">Crear Nuevo Post</span>
+        </button>
+      </div>
       <PostList posts={posts} onLike={handleLike} />
+
+      <CreatePostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onPostCreated={handlePostCreated}
+      />
     </div>
   );
 };
